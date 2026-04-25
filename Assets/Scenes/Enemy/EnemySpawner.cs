@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("=== ¥Í¦¨³]©w ===")]
+    [Header("=== ï¿½Í¦ï¿½ï¿½]ï¿½w ===")]
     public GameObject enemyPrefab;
     public Transform player;
     public float spawnInterval = 3f;
     public float minSpawnDistance = 5f;
     public Vector2 spawnArea = new Vector2(20f, 10f);
 
-    [Header("=== ¼Æ¶q­­¨î ===")]
-    public int maxEnemyCount = 5; // ­­¨î³Ì¦h¦P®É¦s¦b´X­Ó¼Ä¤H
+    [Header("=== ï¿½Æ¶qï¿½ï¿½ï¿½ï¿½ ===")]
+    public int maxEnemyCount = 5; // ï¿½ï¿½ï¿½ï¿½Ì¦hï¿½Pï¿½É¦sï¿½bï¿½Xï¿½Ó¼Ä¤H
 
     private float timer;
     private List<GameObject> activeEnemies = new List<GameObject>();
@@ -20,7 +20,7 @@ public class EnemySpawner : MonoBehaviour
     {
         GameObject[] currentEnemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-        Debug.Log("·í«e³õ´º¤¤ªº¼Ä¤H¼Æ¶q: " + currentEnemies.Length);
+        //Debug.Log("ï¿½ï¿½ï¿½eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¤Hï¿½Æ¶q: " + currentEnemies.Length);
 
         if (currentEnemies.Length < maxEnemyCount)
         {
@@ -44,7 +44,7 @@ public class EnemySpawner : MonoBehaviour
             attempts++;
         } while (Vector2.Distance(spawnPos, player.position) < minSpawnDistance && attempts < 10);
 
-        // ¥Í¦¨¨Ã¥[¤J²M³æ
+        // ï¿½Í¦ï¿½ï¿½Ã¥[ï¿½Jï¿½Mï¿½ï¿½
         GameObject newEnemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
         activeEnemies.Add(newEnemy);
     }

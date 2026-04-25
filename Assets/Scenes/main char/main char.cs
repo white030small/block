@@ -24,23 +24,25 @@ public class mainchar : MonoBehaviour
     [SerializeField] private float damageRadius = 1.5f;
     [SerializeField] private LayerMask enemyLayer;
 
-    [Header("=== 攻擊噴方塊設定 ===")]
-    [Tooltip("命中敵人時噴出的方塊 Prefab（留空會自動建立）")]
-    [SerializeField] private GameObject healthCubePrefab;
-    [Tooltip("噴出方塊的數量")]
+    [Header("=== 下壓掉肉塊 ===")]
     [SerializeField] private int spawnCubeCount = 2;
-    [Tooltip("噴出的力道")]
-    [SerializeField] private float cubeSpawnForce = 8f;
+    [Tooltip("肉塊從多高掉下來")]
+    [SerializeField] private float cubeDropHeight = 8f;
+    [Tooltip("肉塊左右散開的範圍")]
+    [SerializeField] private float cubeSpreadRange = 3f;
 
+    // 元件
     private Rigidbody2D rb;
     private PlayerHealth playerHealth;
+
+    // 狀態
     private bool isRolling = false;
     private bool isGroundPounding = false;
     private bool isDashing = false;
-
     private float dashCooldownTimer = 0f;
     private float lastMoveDirection = 1f;
 
+    // 地面偵測
     private int contactCount = 0;
     private bool isGrounded => contactCount > 0;
 
@@ -56,24 +58,25 @@ public class mainchar : MonoBehaviour
 
     private void Update()
     {
-        // 1. 記錄最後移動方向
         float horizontalInput = Input.GetAxisRaw("Horizontal");
-        if (horizontalInput != 0) lastMoveDirection = horizontalInput > 0 ? 1f : -1f;
+        if (horizontalInput != 0)
+            lastMoveDirection = horizontalInput > 0 ? 1f : -1f;
 
-        // 2. 衝刺輸入 (Shift)
-        if (Input.GetKeyDown(KeyCode.LeftShift) && dashCooldownTimer <= 0 && !isRolling && !isGroundPounding && !isDashing)
+        // 衝刺
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dashCooldownTimer <= 0
+            && !isRolling && !isGroundPounding && !isDashing)
         {
             StartCoroutine(Dash());
         }
         if (dashCooldownTimer > 0) dashCooldownTimer -= Time.deltaTime;
 
-        // 3. 翻滾 (限地面，靜止時不翻滾)
+        // 翻滾（地面 + 有輸入）
         if (!isRolling && !isGroundPounding && !isDashing && isGrounded && horizontalInput != 0)
         {
             StartCoroutine(RollCube(horizontalInput > 0 ? 1 : -1));
         }
 
-        // 4. 跳躍
+        // 跳躍
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isRolling && !isDashing)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
@@ -81,13 +84,24 @@ public class mainchar : MonoBehaviour
             rb.AddForce(jumpVector, ForceMode2D.Impulse);
         }
 
-        // 5. 下壓
+        // 下壓（空中 + 滑鼠左鍵）
         if (Input.GetMouseButtonDown(0) && !isGrounded && !isGroundPounding && !isDashing)
         {
-            StartCoroutine(GroundPound());
+            // 檢查血量：1 格血不能下壓
+            if (playerHealth != null && !playerHealth.TryGroundPound())
+            {
+                // TryGroundPound 已經顯示警告了，什麼都不做
+            }
+            else
+            {
+                StartCoroutine(GroundPound());
+            }
         }
     }
 
+    // ============================================================
+    //  衝刺
+    // ============================================================
     private IEnumerator Dash()
     {
         isDashing = true;
@@ -104,6 +118,9 @@ public class mainchar : MonoBehaviour
         isDashing = false;
     }
 
+    // ============================================================
+    //  翻滾
+    // ============================================================
     private IEnumerator RollCube(int direction)
     {
         isRolling = true;
@@ -119,42 +136,57 @@ public class mainchar : MonoBehaviour
         while (elapsed < rollDuration)
         {
             elapsed += Time.deltaTime;
-            transform.RotateAround(pivot, Vector3.forward, -90 * direction * (Time.deltaTime / rollDuration));
+            transform.RotateAround(pivot, Vector3.forward,
+                -90 * direction * (Time.deltaTime / rollDuration));
             yield return null;
         }
 
-        transform.rotation = Quaternion.Euler(0, 0, Mathf.Round(transform.eulerAngles.z / 90f) * 90f);
+        transform.rotation = Quaternion.Euler(0, 0,
+            Mathf.Round(transform.eulerAngles.z / 90f) * 90f);
         rb.position = transform.position;
         rb.bodyType = RigidbodyType2D.Dynamic;
 
         isRolling = false;
     }
 
+    // ============================================================
+    //  下壓
+    // ============================================================
     private IEnumerator GroundPound()
     {
         isGroundPounding = true;
+
+        // ★ 下壓瞬間從身上噴出肉塊
+        SpawnMeatCubes();
+
+        // 短暫滯空
         rb.linearVelocity = Vector2.zero;
         rb.gravityScale = 0;
         yield return new WaitForSeconds(0.1f);
 
+        // 向下衝
         rb.gravityScale = 4;
         rb.linearVelocity = new Vector2(0, -groundPoundSpeed);
 
+        // 下墜中偵測敵人
         bool hasDamaged = false;
-        while (!isGrounded)
+        float timeout = 5f;
+
+        while (!isGrounded && timeout > 0f)
         {
+            timeout -= Time.deltaTime;
+
             if (!hasDamaged)
             {
-                Collider2D hit = Physics2D.OverlapCircle(transform.position + Vector3.down * 0.5f, damageRadius, enemyLayer);
-                if (hit != null && hit.GetComponent<Enemy>())
+                Collider2D hit = Physics2D.OverlapCircle(
+                    transform.position + Vector3.down * 0.5f,
+                    damageRadius, enemyLayer);
+
+                if (hit != null)
                 {
-                    hit.GetComponent<Enemy>().TakeDamage();
+                    Debug.Log($"[mainchar] 下壓命中: {hit.gameObject.name}");
                     hasDamaged = true;
                     rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce * 0.8f);
-
-                    // ★ 命中敵人：噴出方塊 + 自傷
-                    SpawnHealthCubes();
-                    playerHealth.AttackSelfDamage(1);
                 }
             }
             yield return null;
@@ -163,37 +195,39 @@ public class mainchar : MonoBehaviour
         isGroundPounding = false;
     }
 
-    /// <summary>
-    /// 命中敵人時噴出血量方塊
-    /// </summary>
-    private void SpawnHealthCubes()
+    // ============================================================
+    //  噴肉塊
+    // ============================================================
+    private void SpawnMeatCubes()
     {
+        Debug.Log($"[mainchar] 從天上掉下 {spawnCubeCount} 個肉塊！");
+
         for (int i = 0; i < spawnCubeCount; i++)
         {
-            // 在主角位置生成
-            GameObject cube;
+            // 在主角上方隨機位置生成
+            float randomX = Random.Range(-cubeSpreadRange, cubeSpreadRange);
+            Vector3 spawnPos = transform.position
+                + Vector3.up * cubeDropHeight
+                + Vector3.right * randomX;
 
-            if (healthCubePrefab != null)
-            {
-                cube = Instantiate(healthCubePrefab, transform.position, Quaternion.identity);
-            }
-            else
-            {
-                // 沒有 Prefab 就自動建立
-                cube = new GameObject("HealthCube");
-                cube.transform.position = transform.position;
-                cube.AddComponent<HealthCube>();
-            }
+            GameObject cube = new GameObject($"MeatCube_{i}");
+            cube.transform.position = spawnPos;
 
-            // 給一個隨機方向的噴射力
-            Rigidbody2D cubeRb = cube.GetComponent<Rigidbody2D>();
-            if (cubeRb == null) cubeRb = cube.AddComponent<Rigidbody2D>();
+            Rigidbody2D cubeRb = cube.AddComponent<Rigidbody2D>();
+            cubeRb.gravityScale = 3f;
+            cubeRb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 
-            // 隨機角度往上噴（左右散開）
-            float angle = Random.Range(30f, 150f); // 30~150 度之間
-            Vector2 dir = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
-            cubeRb.AddForce(dir * cubeSpawnForce, ForceMode2D.Impulse);
-            cubeRb.AddTorque(Random.Range(-200f, 200f)); // 隨機旋轉
+            cube.AddComponent<HealthCube>();
+            // 不加力，讓重力自然掉下來
         }
+    }
+
+    // ============================================================
+    //  Gizmos
+    // ============================================================
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position + Vector3.down * 0.5f, damageRadius);
     }
 }

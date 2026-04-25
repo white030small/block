@@ -1,115 +1,137 @@
 using UnityEngine;
 
 /// <summary>
-/// 噴出的血量方塊（可撿拾）
-/// 主角下壓命中敵人時會噴出，撿 2 個回 1 格血
-/// 
-/// 此腳本會自動建立 Sprite 和 Collider，不需要額外設定
+/// 可撿拾的肉塊
+/// 落地後浮動，主角走近自動撿起
+/// 撿 2 個回 1 格血
 /// </summary>
 public class HealthCube : MonoBehaviour
 {
-    [Header("=== 方塊設定 ===")]
+    [Header("=== 設定 ===")]
     [SerializeField] private float lifeTime = 8f;
-    [SerializeField] private float collectRadius = 0.5f;
-    [SerializeField] private Color cubeColor = new Color(1f, 0.3f, 0.3f, 1f);
+    [SerializeField] private float pickupRange = 1.2f;
+    [SerializeField] private float cubeScale = 0.4f;
+    [SerializeField] private Color cubeColor = new Color(0.9f, 0.15f, 0.15f, 1f);
+    [SerializeField] private float bounceHeight = 0.15f;
+    [SerializeField] private float bounceSpeed = 3f;
 
-    [Header("=== 噴射設定 ===")]
-    [SerializeField] private float bounceHeight = 0.3f;
-    [SerializeField] private float bounceSpeed = 2f;
+    [SerializeField] private float pickupDelay = 0.8f;
 
     private float spawnTime;
-    private Vector3 basePosition;
-    private bool isSettled; // 落地後開始彈跳動畫
+    private bool isSettled;
+    private Vector3 settledPos;
     private Rigidbody2D rb;
+    private SpriteRenderer sr;
+    private Transform playerTransform;
+    private PlayerHealth playerHealth;
 
     private void Start()
     {
         spawnTime = Time.time;
 
-        // 自動建立外觀
-        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        // --- 外觀 ---
+        sr = GetComponent<SpriteRenderer>();
         if (sr == null) sr = gameObject.AddComponent<SpriteRenderer>();
-
-        sr.sprite = CreateSquareSprite();
+        if (sr.sprite == null) sr.sprite = MakeSprite();
         sr.color = cubeColor;
         sr.sortingOrder = 5;
-        transform.localScale = Vector3.one * 0.3f;
+        transform.localScale = Vector3.one * cubeScale;
 
-        // 加碰撞（Trigger 用來偵測撿拾）
+        // --- 物理 ---
+        rb = GetComponent<Rigidbody2D>();
+        if (rb == null)
+        {
+            rb = gameObject.AddComponent<Rigidbody2D>();
+            rb.gravityScale = 3f;
+        }
+        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        rb.freezeRotation = false;
+
+        // --- 碰撞（非 Trigger，跟地面互動）---
         BoxCollider2D col = GetComponent<BoxCollider2D>();
         if (col == null) col = gameObject.AddComponent<BoxCollider2D>();
-        col.isTrigger = true;
-        col.size = Vector2.one * (collectRadius / 0.3f);
+        col.isTrigger = false;
+        col.size = Vector2.one;
 
-        // 加 Rigidbody 讓它有物理彈跳
-        rb = GetComponent<Rigidbody2D>();
-        if (rb == null) rb = gameObject.AddComponent<Rigidbody2D>();
-        rb.gravityScale = 3f;
-        rb.freezeRotation = false;
-        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        // --- 找主角 ---
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+        {
+            playerTransform = playerObj.transform;
+            playerHealth = playerObj.GetComponent<PlayerHealth>();
+        }
 
-        // 加一個實體碰撞的 Collider（跟地面互動）
-        CircleCollider2D physicsCol = gameObject.AddComponent<CircleCollider2D>();
-        physicsCol.isTrigger = false;
-        physicsCol.radius = 0.4f;
+        if (playerTransform == null)
+        {
+            // 備用：找 PlayerHealth 元件
+            PlayerHealth ph = FindObjectOfType<PlayerHealth>();
+            if (ph != null)
+            {
+                playerTransform = ph.transform;
+                playerHealth = ph;
+            }
+        }
     }
 
     private void Update()
     {
-        // 超時消失（接近消失前閃爍）
-        float elapsed = Time.time - spawnTime;
+        float age = Time.time - spawnTime;
 
-        if (elapsed > lifeTime)
+        // --- 超時消失 ---
+        if (age > lifeTime)
         {
             Destroy(gameObject);
             return;
         }
 
-        // 最後 2 秒閃爍提示
-        if (elapsed > lifeTime - 2f)
+        // --- 最後 2 秒閃爍 ---
+        if (age > lifeTime - 2f && sr != null)
         {
-            SpriteRenderer sr = GetComponent<SpriteRenderer>();
-            if (sr != null)
-                sr.enabled = Mathf.FloorToInt(Time.time * 8f) % 2 == 0;
+            sr.enabled = Mathf.FloorToInt(Time.time * 8f) % 2 == 0;
         }
 
-        // 落地後微微上下彈跳
+        // --- 落地後浮動 ---
         if (isSettled)
         {
             float bounce = Mathf.Sin(Time.time * bounceSpeed) * bounceHeight;
-            transform.position = basePosition + Vector3.up * bounce;
+            transform.position = settledPos + Vector3.up * bounce;
+        }
+
+        // --- 撿拾偵測（噴出後等一下才能撿）---
+        if (playerTransform != null && (Time.time - spawnTime) > pickupDelay)
+        {
+            float dist = Vector2.Distance(transform.position, playerTransform.position);
+            if (dist < pickupRange)
+            {
+                if (playerHealth != null)
+                {
+                    playerHealth.CollectCube();
+                    Debug.Log("[HealthCube] 被撿起來了！");
+                }
+                Destroy(gameObject);
+            }
         }
     }
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        // 落地後停住，開始浮動動畫
+        // 碰到任何東西（地面）就停下來
         if (!isSettled && rb != null)
         {
             rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
             rb.bodyType = RigidbodyType2D.Kinematic;
-            basePosition = transform.position;
+            settledPos = transform.position;
             isSettled = true;
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        // 主角碰到就撿起來
-        PlayerHealth health = other.GetComponent<PlayerHealth>();
-        if (health != null)
-        {
-            health.CollectCube();
-            Destroy(gameObject);
-        }
-    }
-
-    private Sprite CreateSquareSprite()
+    private Sprite MakeSprite()
     {
         Texture2D tex = new Texture2D(4, 4);
-        Color[] colors = new Color[16];
-        for (int i = 0; i < 16; i++) colors[i] = Color.white;
-        tex.SetPixels(colors);
+        Color[] px = new Color[16];
+        for (int i = 0; i < 16; i++) px[i] = Color.white;
+        tex.SetPixels(px);
         tex.Apply();
         return Sprite.Create(tex, new Rect(0, 0, 4, 4), new Vector2(0.5f, 0.5f), 4f);
     }
