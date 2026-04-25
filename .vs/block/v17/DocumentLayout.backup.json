@@ -7,16 +7,20 @@
       "RelativeMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|solutionrelative:assets\\scenes\\enemy\\enemyspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|c:\\users\\user\\documents\\github\\block\\assets\\scenes\\enemy\\enemyai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|solutionrelative:assets\\scenes\\enemy\\enemyai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|C:\\Users\\USER\\Documents\\GitHub\\block\\assets\\scenes\\main char\\main char.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|solutionrelative:assets\\scenes\\main char\\main char.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|C:\\Users\\USER\\Documents\\GitHub\\block\\assets\\scenes\\main char\\camerfollower2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|solutionrelative:assets\\scenes\\main char\\camerfollower2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|C:\\Users\\USER\\Documents\\GitHub\\block\\assets\\scenes\\main char\\main char.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|solutionrelative:assets\\scenes\\main char\\main char.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|c:\\users\\user\\documents\\github\\block\\assets\\scenes\\enemy\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|solutionrelative:assets\\scenes\\enemy\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|C:\\Users\\USER\\Documents\\GitHub\\block\\assets\\scenes\\enemy\\enemyai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|solutionrelative:assets\\scenes\\enemy\\enemyai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,7 +38,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
+              "Title": "Enemy.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Documents\\GitHub\\block\\Assets\\Scenes\\Enemy\\Enemy.cs",
+              "RelativeDocumentMoniker": "Assets\\Scenes\\Enemy\\Enemy.cs",
+              "ToolTip": "C:\\Users\\USER\\Documents\\GitHub\\block\\Assets\\Scenes\\Enemy\\Enemy.cs",
+              "RelativeToolTip": "Assets\\Scenes\\Enemy\\Enemy.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-25T07:19:07.221Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "EnemyAI.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\GitHub\\block\\Assets\\Scenes\\Enemy\\EnemyAI.cs",
               "RelativeDocumentMoniker": "Assets\\Scenes\\Enemy\\EnemyAI.cs",
@@ -42,8 +59,7 @@
               "RelativeToolTip": "Assets\\Scenes\\Enemy\\EnemyAI.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-25T07:03:27.826Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-25T07:03:27.826Z"
             },
             {
               "$type": "Document",
@@ -53,7 +69,7 @@
               "RelativeDocumentMoniker": "Assets\\Scenes\\Enemy\\EnemySpawner.cs",
               "ToolTip": "C:\\Users\\USER\\Documents\\GitHub\\block\\Assets\\Scenes\\Enemy\\EnemySpawner.cs",
               "RelativeToolTip": "Assets\\Scenes\\Enemy\\EnemySpawner.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAADwvxcAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAADwvxYAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-25T07:01:46.296Z",
               "EditorCaption": ""
@@ -68,19 +84,21 @@
               "RelativeToolTip": "Assets\\Scenes\\main char\\Camerfollower2d.cs",
               "ViewState": "AgIAACoAAAAAAAAAAAAqwDsAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-25T05:19:59.75Z"
+              "WhenOpened": "2026-04-25T05:19:59.75Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "main char.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\GitHub\\block\\Assets\\Scenes\\main char\\main char.cs",
               "RelativeDocumentMoniker": "Assets\\Scenes\\main char\\main char.cs",
               "ToolTip": "C:\\Users\\USER\\Documents\\GitHub\\block\\Assets\\Scenes\\main char\\main char.cs",
               "RelativeToolTip": "Assets\\Scenes\\main char\\main char.cs",
-              "ViewState": "AgIAAGIAAAAAAAAAAAAswHYAAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAQwBQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-25T02:50:36.488Z"
+              "WhenOpened": "2026-04-25T02:50:36.488Z",
+              "EditorCaption": ""
             }
           ]
         }

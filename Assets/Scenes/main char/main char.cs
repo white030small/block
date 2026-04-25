@@ -158,6 +158,7 @@ public class mainchar : MonoBehaviour
                 {
                     hit.GetComponent<Enemy>().TakeDamage();
                     hasDamaged = true; // 防止一幀內重複傷害
+                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce * 0.8f);
                 }
             }
             yield return null;
