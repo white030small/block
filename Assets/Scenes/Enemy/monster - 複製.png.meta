@@ -1,0 +1,351 @@
+fileFormatVersion: 2
+guid: 4a4d199042a429f4e9c8a7c42d5e8843
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3578288537157424000
+    second: "monster - \u8907\u88FD_0"
+  - first:
+      213: 7120112209811985192
+    second: "monster - \u8907\u88FD_1"
+  - first:
+      213: -9015023220616520385
+    second: "monster - \u8907\u88FD_2"
+  - first:
+      213: 186649948911383194
+    second: "monster - \u8907\u88FD_3"
+  - first:
+      213: 1563811323942073026
+    second: "monster - \u8907\u88FD_4"
+  - first:
+      213: -2065093096816378165
+    second: "monster - \u8907\u88FD_5"
+  - first:
+      213: 5861143947873348001
+    second: "monster - \u8907\u88FD_6"
+  - first:
+      213: -1442112237206386865
+    second: "monster - \u8907\u88FD_7"
+  - first:
+      213: -8068172466667859520
+    second: "monster - \u8907\u88FD_8"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "monster - \u8907\u88FD_0"
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 4
+        width: 94
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08c21e6b88d575ec0800000000000000
+      internalID: -3578288537157424000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "monster - \u8907\u88FD_1"
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 4
+        width: 94
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 823d3c2b458bfc260800000000000000
+      internalID: 7120112209811985192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "monster - \u8907\u88FD_2"
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 1
+        width: 94
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3d114df42434e280800000000000000
+      internalID: -9015023220616520385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "monster - \u8907\u88FD_3"
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 1
+        width: 94
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a92353eb32d179200800000000000000
+      internalID: 186649948911383194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "monster - \u8907\u88FD_4"
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 2
+        width: 95
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c2fc4b1d16c3b510800000000000000
+      internalID: 1563811323942073026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "monster - \u8907\u88FD_5"
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 3
+        width: 94
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcef52015c05753e0800000000000000
+      internalID: -2065093096816378165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "monster - \u8907\u88FD_6"
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 4
+        width: 94
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a9eb6eed57f65150800000000000000
+      internalID: 5861143947873348001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "monster - \u8907\u88FD_7"
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 3
+        width: 94
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f47c1179f869cfbe0800000000000000
+      internalID: -1442112237206386865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "monster - \u8907\u88FD_8"
+      rect:
+        serializedVersion: 2
+        x: 804
+        y: 4
+        width: 94
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c1dca973e7180090800000000000000
+      internalID: -8068172466667859520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      "monster - \u8907\u88FD_0": -3578288537157424000
+      "monster - \u8907\u88FD_1": 7120112209811985192
+      "monster - \u8907\u88FD_2": -9015023220616520385
+      "monster - \u8907\u88FD_3": 186649948911383194
+      "monster - \u8907\u88FD_4": 1563811323942073026
+      "monster - \u8907\u88FD_5": -2065093096816378165
+      "monster - \u8907\u88FD_6": 5861143947873348001
+      "monster - \u8907\u88FD_7": -1442112237206386865
+      "monster - \u8907\u88FD_8": -8068172466667859520
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -3,6 +3,7 @@ using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(PlayerHealth))]
 public class mainchar : MonoBehaviour
 {
     [Header("=== 移動與翻滾設定 ===")]
@@ -20,16 +21,25 @@ public class mainchar : MonoBehaviour
     [SerializeField] private float dashCooldown = 1f;
 
     [Header("=== 戰鬥設定 ===")]
-    [SerializeField] private float damageRadius = 1.5f; // 傷害半徑
-    [SerializeField] private LayerMask enemyLayer;      // 敵人所在的 Layer
+    [SerializeField] private float damageRadius = 1.5f;
+    [SerializeField] private LayerMask enemyLayer;
+
+    [Header("=== 攻擊噴方塊設定 ===")]
+    [Tooltip("命中敵人時噴出的方塊 Prefab（留空會自動建立）")]
+    [SerializeField] private GameObject healthCubePrefab;
+    [Tooltip("噴出方塊的數量")]
+    [SerializeField] private int spawnCubeCount = 2;
+    [Tooltip("噴出的力道")]
+    [SerializeField] private float cubeSpawnForce = 8f;
 
     private Rigidbody2D rb;
+    private PlayerHealth playerHealth;
     private bool isRolling = false;
     private bool isGroundPounding = false;
     private bool isDashing = false;
 
     private float dashCooldownTimer = 0f;
-    private float lastMoveDirection = 1f; // 記憶最後按下的方向
+    private float lastMoveDirection = 1f;
 
     private int contactCount = 0;
     private bool isGrounded => contactCount > 0;
@@ -38,6 +48,7 @@ public class mainchar : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
+        playerHealth = GetComponent<PlayerHealth>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision) { contactCount++; }
@@ -63,16 +74,10 @@ public class mainchar : MonoBehaviour
         }
 
         // 4. 跳躍
-        // 假設你已經有一個記錄最後方向的變數，例如 lastMoveDirection (1 或 -1)
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isRolling && !isDashing)
         {
-            // 1. 重置垂直速度，確保起跳高度一致
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
-
-            // 2. 定義斜跳向量：(水平力 * 方向, 垂直跳躍力
             Vector2 jumpVector = new Vector2(lastMoveDirection * jumpHorizontalForce, jumpForce);
-
-            // 3. 施加力
             rb.AddForce(jumpVector, ForceMode2D.Impulse);
         }
 
@@ -103,12 +108,10 @@ public class mainchar : MonoBehaviour
     {
         isRolling = true;
 
-        // 1. 關閉物理模擬
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.linearVelocity = Vector2.zero;
         rb.angularVelocity = 0;
 
-        // 2. 執行旋轉
         float elapsed = 0f;
         float half = cubeSize / 2f;
         Vector3 pivot = transform.position + new Vector3(direction * half, -half, 0f);
@@ -120,20 +123,12 @@ public class mainchar : MonoBehaviour
             yield return null;
         }
 
-        // 3. 修正：旋轉完後，將座標對齊到完美格子
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Round(transform.eulerAngles.z / 90f) * 90f);
-
-        // --- 核心修正：將 Transform 的位置告知 Rigidbody ---
-        // 這樣物理引擎就不會以為物體在「偷跑」
         rb.position = transform.position;
-
-        // 4. 開啟物理模擬
         rb.bodyType = RigidbodyType2D.Dynamic;
 
         isRolling = false;
     }
-
-   
 
     private IEnumerator GroundPound()
     {
@@ -145,25 +140,60 @@ public class mainchar : MonoBehaviour
         rb.gravityScale = 4;
         rb.linearVelocity = new Vector2(0, -groundPoundSpeed);
 
-        // --- 傷害偵測邏輯 ---
-        // 當下壓時，持續偵測下方有沒有敵人
         bool hasDamaged = false;
         while (!isGrounded)
         {
             if (!hasDamaged)
             {
-                // 以主角腳下為圓心偵測敵人
                 Collider2D hit = Physics2D.OverlapCircle(transform.position + Vector3.down * 0.5f, damageRadius, enemyLayer);
                 if (hit != null && hit.GetComponent<Enemy>())
                 {
                     hit.GetComponent<Enemy>().TakeDamage();
-                    hasDamaged = true; // 防止一幀內重複傷害
+                    hasDamaged = true;
                     rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce * 0.8f);
+
+                    // ★ 命中敵人：噴出方塊 + 自傷
+                    SpawnHealthCubes();
+                    playerHealth.AttackSelfDamage(1);
                 }
             }
             yield return null;
         }
 
         isGroundPounding = false;
+    }
+
+    /// <summary>
+    /// 命中敵人時噴出血量方塊
+    /// </summary>
+    private void SpawnHealthCubes()
+    {
+        for (int i = 0; i < spawnCubeCount; i++)
+        {
+            // 在主角位置生成
+            GameObject cube;
+
+            if (healthCubePrefab != null)
+            {
+                cube = Instantiate(healthCubePrefab, transform.position, Quaternion.identity);
+            }
+            else
+            {
+                // 沒有 Prefab 就自動建立
+                cube = new GameObject("HealthCube");
+                cube.transform.position = transform.position;
+                cube.AddComponent<HealthCube>();
+            }
+
+            // 給一個隨機方向的噴射力
+            Rigidbody2D cubeRb = cube.GetComponent<Rigidbody2D>();
+            if (cubeRb == null) cubeRb = cube.AddComponent<Rigidbody2D>();
+
+            // 隨機角度往上噴（左右散開）
+            float angle = Random.Range(30f, 150f); // 30~150 度之間
+            Vector2 dir = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
+            cubeRb.AddForce(dir * cubeSpawnForce, ForceMode2D.Impulse);
+            cubeRb.AddTorque(Random.Range(-200f, 200f)); // 隨機旋轉
+        }
     }
 }
