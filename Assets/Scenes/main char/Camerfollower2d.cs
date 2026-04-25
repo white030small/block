@@ -1,59 +1,46 @@
 using UnityEngine;
 
 /// <summary>
-/// 2D 攝影機跟隨腳本
-/// 功能：平滑跟隨、前方偏移(Look Ahead)、Y軸死區、邊界限制
-/// 使用方式：掛在主攝影機上，將角色拖入 Target 欄位
+/// 優化版 2D 攝影機跟隨腳本
+/// 修正了會誤鎖主角位置的 Y 軸邏輯
 /// </summary>
 public class CameraFollow2D : MonoBehaviour
 {
-    [Header("=== 目標 ===")]
+    [Header("=== 目標設定 ===")]
     [SerializeField] private Transform target;
 
     [Header("=== 跟隨設定 ===")]
-    [SerializeField] private float smoothSpeed = 8f;
+    [SerializeField] private float smoothTime = 0.2f;
     [SerializeField] private Vector2 offset = new Vector2(0f, 1.5f);
 
     [Header("=== 前方偏移 (Look Ahead) ===")]
-    [Tooltip("角色面朝的方向會多看一點")]
     [SerializeField] private float lookAheadDistance = 2f;
     [SerializeField] private float lookAheadSpeed = 3f;
 
     [Header("=== Y 軸死區 ===")]
-    [Tooltip("角色在此範圍內上下移動時，攝影機不跟隨Y軸")]
     [SerializeField] private float verticalDeadZone = 1f;
 
-    [Header("=== 邊界限制（選用）===")]
+    [Header("=== 邊界限制 ===")]
     [SerializeField] private bool useBounds;
-    [SerializeField] private float minX = -50f;
-    [SerializeField] private float maxX = 50f;
-    [SerializeField] private float minY = -10f;
-    [SerializeField] private float maxY = 30f;
+    [SerializeField] private float minX = -50f, maxX = 50f;
+    [SerializeField] private float minY = -10f, maxY = 30f;
 
+    private Vector3 currentVelocity = Vector3.zero;
     private float currentLookAhead;
     private float targetLookAhead;
     private float lastTargetX;
 
     private void Start()
     {
-        if (target == null)
-        {
-            Debug.LogWarning("[CameraFollow2D] 未指定目標！請拖入 Target。");
-            return;
-        }
-
-        // 初始定位
-        lastTargetX = target.position.x;
-        Vector3 startPos = target.position + (Vector3)offset;
-        startPos.z = transform.position.z;
-        transform.position = startPos;
+        if (target != null) lastTargetX = target.position.x;
     }
 
     private void LateUpdate()
     {
-        if (target == null) return;
+        // 安全檢查：若沒有目標或目標就是攝影機自己，直接跳出，防止鎖定座標
+        if (target == null || target == this.transform) return;
 
-        // ---- Look Ahead ----
+        // 1. Look Ahead 計算
         float moveDir = target.position.x - lastTargetX;
         if (Mathf.Abs(moveDir) > 0.01f)
             targetLookAhead = Mathf.Sign(moveDir) * lookAheadDistance;
@@ -61,28 +48,30 @@ public class CameraFollow2D : MonoBehaviour
         currentLookAhead = Mathf.Lerp(currentLookAhead, targetLookAhead, lookAheadSpeed * Time.deltaTime);
         lastTargetX = target.position.x;
 
-        // ---- 目標位置 ----
+        // 2. 計算目標位置
         float targetX = target.position.x + offset.x + currentLookAhead;
         float targetY = target.position.y + offset.y;
 
-        // Y 軸死區：只有超出範圍才跟隨
-        float currentY = transform.position.y;
-        float deltaY = targetY - currentY;
-        if (Mathf.Abs(deltaY) < verticalDeadZone)
-            targetY = currentY;
+        // 3. Y 軸死區邏輯 (只改變攝影機的目標 Y，不影響主角)
+        float cameraY = transform.position.y;
+        if (Mathf.Abs(targetY - cameraY) <= verticalDeadZone)
+        {
+            targetY = cameraY;
+        }
 
         Vector3 desiredPos = new Vector3(targetX, targetY, transform.position.z);
 
-        // ---- 平滑移動 ----
-        Vector3 smoothedPos = Vector3.Lerp(transform.position, desiredPos, smoothSpeed * Time.deltaTime);
+        // 4. 平滑移動
+        transform.position = Vector3.SmoothDamp(transform.position, desiredPos, ref currentVelocity, smoothTime);
 
-        // ---- 邊界限制 ----
+        // 5. 邊界限制
         if (useBounds)
         {
-            smoothedPos.x = Mathf.Clamp(smoothedPos.x, minX, maxX);
-            smoothedPos.y = Mathf.Clamp(smoothedPos.y, minY, maxY);
+            transform.position = new Vector3(
+                Mathf.Clamp(transform.position.x, minX, maxX),
+                Mathf.Clamp(transform.position.y, minY, maxY),
+                transform.position.z
+            );
         }
-
-        transform.position = smoothedPos;
     }
 }
