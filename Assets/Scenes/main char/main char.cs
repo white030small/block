@@ -19,6 +19,10 @@ public class mainchar : MonoBehaviour
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 1f;
 
+    [Header("=== 戰鬥設定 ===")]
+    [SerializeField] private float damageRadius = 1.5f; // 傷害半徑
+    [SerializeField] private LayerMask enemyLayer;      // 敵人所在的 Layer
+
     private Rigidbody2D rb;
     private bool isRolling = false;
     private bool isGroundPounding = false;
@@ -129,6 +133,8 @@ public class mainchar : MonoBehaviour
         isRolling = false;
     }
 
+   
+
     private IEnumerator GroundPound()
     {
         isGroundPounding = true;
@@ -139,7 +145,24 @@ public class mainchar : MonoBehaviour
         rb.gravityScale = 4;
         rb.linearVelocity = new Vector2(0, -groundPoundSpeed);
 
-        yield return new WaitUntil(() => isGrounded);
+        // --- 傷害偵測邏輯 ---
+        // 當下壓時，持續偵測下方有沒有敵人
+        bool hasDamaged = false;
+        while (!isGrounded)
+        {
+            if (!hasDamaged)
+            {
+                // 以主角腳下為圓心偵測敵人
+                Collider2D hit = Physics2D.OverlapCircle(transform.position + Vector3.down * 0.5f, damageRadius, enemyLayer);
+                if (hit != null && hit.GetComponent<Enemy>())
+                {
+                    hit.GetComponent<Enemy>().TakeDamage();
+                    hasDamaged = true; // 防止一幀內重複傷害
+                }
+            }
+            yield return null;
+        }
+
         isGroundPounding = false;
     }
 }
