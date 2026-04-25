@@ -351,7 +351,7 @@ GameObject:
   - component: {fileID: 960813378}
   - component: {fileID: 960813377}
   - component: {fileID: 960813376}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: floor
   m_TagString: floor
   m_Icon: {fileID: 0}
@@ -468,7 +468,7 @@ Transform:
   m_GameObject: {fileID: 960813375}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.5, z: 0}
+  m_LocalPosition: {x: 0, y: -1.5, z: 0}
   m_LocalScale: {x: 17.959309, y: 3.17611, z: 1.099}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -632,7 +632,7 @@ Transform:
   m_GameObject: {fileID: 1480072753}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: -0.02, y: 1.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -675,13 +675,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cubeSize: 1
   rollDuration: 0.25
-  jumpForce: 14
+  jumpForce: 10
+  maxFallSpeed: 20
+  fallGravityScale: 5
+  normalGravityScale: 3
   groundPoundSpeed: 25
   groundPoundHangTime: 0.1
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
-  groundCheckDistance: 0.15
+    m_Bits: 64
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
