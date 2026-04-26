@@ -29,6 +29,9 @@ public class mainchar : MonoBehaviour
     [Tooltip("肉塊噴射力道")]
     [SerializeField] private float cubeSpawnForce = 10f;
 
+    [Header("=== 音效設定 ===")]
+    [SerializeField] private AudioSource deathAudioSource;
+    [SerializeField] private AudioClip deathClip;
     // 元件
     private bool isDead = false; // 死亡總開關
     private Rigidbody2D rb;
@@ -63,7 +66,10 @@ public class mainchar : MonoBehaviour
         isDead = true;
 
         Debug.Log("[mainchar] 執行死亡鎖定...");
-
+        if (deathAudioSource != null && deathClip != null)
+        {
+            deathAudioSource.PlayOneShot(deathClip);
+        }
         // 1. 徹底停止所有行為
         StopAllCoroutines();
         // ★ 關鍵順序：先關閉物理速度，再設為 Static
