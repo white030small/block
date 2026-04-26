@@ -3,16 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\USER\\Documents\\GitHub\\block\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|C:\\Users\\USER\\Documents\\GitHub\\block\\assets\\scenes\\enemy\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|solutionrelative:assets\\scenes\\enemy\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|c:\\users\\user\\documents\\github\\block\\assets\\scenes\\enemy\\enemyspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|solutionrelative:assets\\scenes\\enemy\\enemyspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|C:\\Users\\USER\\Documents\\GitHub\\block\\assets\\scenes\\enemy\\enemyai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|solutionrelative:assets\\scenes\\enemy\\enemyai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|c:\\users\\user\\documents\\github\\block\\assets\\scenes\\enemy\\mashprogressbar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|solutionrelative:assets\\scenes\\enemy\\mashprogressbar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|C:\\Users\\USER\\Documents\\GitHub\\block\\assets\\scenes\\main char\\main char.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -21,6 +13,26 @@
     {
       "AbsoluteMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|C:\\Users\\USER\\Documents\\GitHub\\block\\assets\\scenes\\main char\\camerfollower2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|solutionrelative:assets\\scenes\\main char\\camerfollower2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|C:\\Users\\USER\\Documents\\GitHub\\block\\assets\\scenes\\enemy\\enemyspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|solutionrelative:assets\\scenes\\enemy\\enemyspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|c:\\users\\user\\documents\\github\\block\\assets\\scenes\\enemy\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|solutionrelative:assets\\scenes\\enemy\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|c:\\users\\user\\documents\\github\\block\\assets\\scenes\\enemy\\jumppatrolenemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|solutionrelative:assets\\scenes\\enemy\\jumppatrolenemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|c:\\users\\user\\documents\\github\\block\\assets\\scenes\\main char\\playerhealth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|solutionrelative:assets\\scenes\\main char\\playerhealth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|C:\\Users\\USER\\Documents\\GitHub\\block\\assets\\scenes\\enemy\\enemyai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{212E7E0B-8F2D-D953-3F9A-0E7E273B6BF8}|Assembly-CSharp.csproj|solutionrelative:assets\\scenes\\enemy\\enemyai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -39,19 +51,58 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "MashProgressBar.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Documents\\GitHub\\block\\Assets\\Scenes\\Enemy\\MashProgressBar.cs",
+              "RelativeDocumentMoniker": "Assets\\Scenes\\Enemy\\MashProgressBar.cs",
+              "ToolTip": "C:\\Users\\USER\\Documents\\GitHub\\block\\Assets\\Scenes\\Enemy\\MashProgressBar.cs",
+              "RelativeToolTip": "Assets\\Scenes\\Enemy\\MashProgressBar.cs",
+              "ViewState": "AgIAAEEAAAAAAAAAAADwv1YAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T04:25:45.303Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "JumpPatrolEnemy.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Documents\\GitHub\\block\\Assets\\Scenes\\Enemy\\JumpPatrolEnemy.cs",
+              "RelativeDocumentMoniker": "Assets\\Scenes\\Enemy\\JumpPatrolEnemy.cs",
+              "ToolTip": "C:\\Users\\USER\\Documents\\GitHub\\block\\Assets\\Scenes\\Enemy\\JumpPatrolEnemy.cs",
+              "RelativeToolTip": "Assets\\Scenes\\Enemy\\JumpPatrolEnemy.cs",
+              "ViewState": "AgIAAE0AAAAAAAAAAAAAAGEAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T03:48:54.607Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PlayerHealth.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Documents\\GitHub\\block\\Assets\\Scenes\\main char\\PlayerHealth.cs",
+              "RelativeDocumentMoniker": "Assets\\Scenes\\main char\\PlayerHealth.cs",
+              "ToolTip": "C:\\Users\\USER\\Documents\\GitHub\\block\\Assets\\Scenes\\main char\\PlayerHealth.cs",
+              "RelativeToolTip": "Assets\\Scenes\\main char\\PlayerHealth.cs",
+              "ViewState": "AgIAAGcAAAAAAAAAAAAgwIMAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T02:51:58.268Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Enemy.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\GitHub\\block\\Assets\\Scenes\\Enemy\\Enemy.cs",
               "RelativeDocumentMoniker": "Assets\\Scenes\\Enemy\\Enemy.cs",
               "ToolTip": "C:\\Users\\USER\\Documents\\GitHub\\block\\Assets\\Scenes\\Enemy\\Enemy.cs",
               "RelativeToolTip": "Assets\\Scenes\\Enemy\\Enemy.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-25T07:19:07.221Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "EnemyAI.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\GitHub\\block\\Assets\\Scenes\\Enemy\\EnemyAI.cs",
               "RelativeDocumentMoniker": "Assets\\Scenes\\Enemy\\EnemyAI.cs",
@@ -64,39 +115,39 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "EnemySpawner.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\GitHub\\block\\Assets\\Scenes\\Enemy\\EnemySpawner.cs",
               "RelativeDocumentMoniker": "Assets\\Scenes\\Enemy\\EnemySpawner.cs",
               "ToolTip": "C:\\Users\\USER\\Documents\\GitHub\\block\\Assets\\Scenes\\Enemy\\EnemySpawner.cs",
               "RelativeToolTip": "Assets\\Scenes\\Enemy\\EnemySpawner.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAADwvxYAAAA6AAAAAAAAAA==",
+              "ViewState": "AgIAAAsAAAAAAAAAAADwvxgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-25T07:01:46.296Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "Camerfollower2d.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\GitHub\\block\\Assets\\Scenes\\main char\\Camerfollower2d.cs",
               "RelativeDocumentMoniker": "Assets\\Scenes\\main char\\Camerfollower2d.cs",
               "ToolTip": "C:\\Users\\USER\\Documents\\GitHub\\block\\Assets\\Scenes\\main char\\Camerfollower2d.cs",
               "RelativeToolTip": "Assets\\Scenes\\main char\\Camerfollower2d.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAqwDsAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAABEAAAAAAAAAAADwvx0AAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-25T05:19:59.75Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "main char.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\GitHub\\block\\Assets\\Scenes\\main char\\main char.cs",
               "RelativeDocumentMoniker": "Assets\\Scenes\\main char\\main char.cs",
               "ToolTip": "C:\\Users\\USER\\Documents\\GitHub\\block\\Assets\\Scenes\\main char\\main char.cs",
               "RelativeToolTip": "Assets\\Scenes\\main char\\main char.cs",
-              "ViewState": "AgIAAIoAAAAAAAAAAAAowKAAAABbAAAAAAAAAA==",
+              "ViewState": "AgIAAEYAAAAAAAAAAAD4v1kAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-25T02:50:36.488Z",
               "EditorCaption": ""

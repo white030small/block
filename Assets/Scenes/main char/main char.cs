@@ -30,12 +30,13 @@ public class mainchar : MonoBehaviour
     [SerializeField] private float cubeSpawnForce = 10f;
 
     // 元件
+    private bool isDead = false; // 死亡總開關
     private Rigidbody2D rb;
     private PlayerHealth playerHealth;
 
     // 狀態
     private bool isRolling = false;
-    private bool isGroundPounding = false;
+    public bool isGroundPounding = false;
     private bool isDashing = false;
     private float dashCooldownTimer = 0f;
     private float lastMoveDirection = 1f;
@@ -47,15 +48,63 @@ public class mainchar : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.freezeRotation = true;
         playerHealth = GetComponent<PlayerHealth>();
+
+        // 訂閱事件
+        if (playerHealth != null)
+        {
+            playerHealth.OnPlayerDeath += HandleDeath;
+            Debug.Log("[mainchar] 已成功訂閱死亡事件");
+        }
     }
+    private void HandleDeath()
+    {
+        if (isDead) return;
+        isDead = true;
+
+        Debug.Log("[mainchar] 執行死亡鎖定...");
+
+        // 1. 徹底停止所有行為
+        StopAllCoroutines();
+        // ★ 關鍵順序：先關閉物理速度，再設為 Static
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0;
+        rb.bodyType = RigidbodyType2D.Static;
+
+        // 2. 讓主角變成「幽靈」，不會再觸發任何碰撞 (防止回血)
+        GetComponent<Collider2D>().enabled = false;
+        if (playerHealth != null) playerHealth.enabled = false;
+
+        // 3. 切換攝影機
+        CameraFollow2D cam = Camera.main.GetComponent<CameraFollow2D>();
+        GameObject boss = GameObject.FindGameObjectWithTag("Boss"); // 記得將 Boss 的 Tag 設為 Boss
+
+        if (cam != null && boss != null)
+        {
+            // 將 100f 改為你需要的大小 (例如 15f 或 20f)，數值越大畫面越遠
+            cam.SwitchTarget(boss.transform, 100f);
+        }
+
+        // 4. 最後才關閉腳本
+        this.enabled = false;
+    }
+    private void OnDestroy()
+    {
+        // 養成好習慣：取消訂閱
+        if (playerHealth != null)
+        {
+            playerHealth.OnPlayerDeath -= HandleDeath;
+        }
+    }
+    
 
     private void OnCollisionEnter2D(Collision2D collision) { contactCount++; }
     private void OnCollisionExit2D(Collision2D collision) { contactCount--; }
 
     private void Update()
     {
+        if (isDead) return;
+
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         if (horizontalInput != 0)
             lastMoveDirection = horizontalInput > 0 ? 1f : -1f;

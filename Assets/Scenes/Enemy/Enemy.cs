@@ -1,19 +1,28 @@
-// 掛在敵人身上
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public void TakeDamage()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        // 這裡寫死亡特效或銷毀敵人
-        GetComponent<SpriteRenderer>().enabled = false;
-    }
-    private void Update()
-    {
-        // 保險：如果敵人因為 Bug 飛出地圖外，強制自我銷毀，避免占用數量限制
-        if (Mathf.Abs(transform.position.x) > 100 || Mathf.Abs(transform.position.y) > 100)
+        if (collision.gameObject.CompareTag("Player"))
         {
-            Destroy(gameObject);
+            mainchar player = collision.gameObject.GetComponent<mainchar>();
+
+            if (player != null)
+            {
+                // ★ 這行是關鍵，看看它到底是不是 true
+                Debug.Log($"[偵錯] 撞到主角，主角目前 IsGroundPounding 狀態為: {player.isGroundPounding}");
+
+                if (player.isGroundPounding)
+                {
+                    TakeDamage(1);
+                }
+            }
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        Destroy(gameObject);
     }
 }

@@ -1,26 +1,30 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("=== �ͦ��]�w ===")]
+    [Header("=== 生成設定 ===")]
     public GameObject enemyPrefab;
     public Transform player;
     public float spawnInterval = 3f;
     public float minSpawnDistance = 5f;
     public Vector2 spawnArea = new Vector2(20f, 10f);
 
-    [Header("=== �ƶq���� ===")]
-    public int maxEnemyCount = 5; // ����̦h�P�ɦs�b�X�ӼĤH
+    [Header("=== 數量限制 ===")]
+    public int maxEnemyCount = 5;
 
     private float timer;
-    private List<GameObject> activeEnemies = new List<GameObject>();
+
+    private void Start()
+    {
+        timer = spawnInterval;
+    }
 
     private void Update()
     {
         GameObject[] currentEnemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-        //Debug.Log("���e���������ĤH�ƶq: " + currentEnemies.Length);
+        // 將這行解除註解，看看 Console 寫了什麼
+        Debug.Log($"[生成器] 目前場上敵人數量: {currentEnemies.Length}");
 
         if (currentEnemies.Length < maxEnemyCount)
         {
@@ -35,17 +39,26 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        Vector2 spawnPos;
+        Vector2 spawnPos = Vector2.zero;
+        bool validPos = false;
         int attempts = 0;
 
-        do
+        while (!validPos && attempts < 10)
         {
-            spawnPos = new Vector2(Random.Range(-spawnArea.x, spawnArea.x), Random.Range(-spawnArea.y, spawnArea.y));
-            attempts++;
-        } while (Vector2.Distance(spawnPos, player.position) < minSpawnDistance && attempts < 10);
+            // X 座標維持隨機，Y 座標強制固定為 1.2f
+            float randomX = UnityEngine.Random.Range(-spawnArea.x, spawnArea.x);
+            float fixedY = 1.2f;
 
-        // �ͦ��å[�J�M��
-        GameObject newEnemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-        activeEnemies.Add(newEnemy);
+            spawnPos = new Vector2(randomX, fixedY);
+
+            // 檢查距離是否符合要求
+            if (player != null && Vector2.Distance(spawnPos, player.position) >= minSpawnDistance)
+            {
+                validPos = true;
+            }
+            attempts++;
+        }
+
+        Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
     }
 }

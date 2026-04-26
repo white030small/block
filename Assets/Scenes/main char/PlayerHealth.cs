@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-
+using System;
 /// <summary>
 /// 主角血量系統
 /// 
@@ -107,27 +107,22 @@ public class PlayerHealth : MonoBehaviour
             transform.localScale = new Vector3(signX * next, next, 1f);
         }
     }
-
+    public event Action OnPlayerDeath;
     // ============================================================
     //  被攻擊（扣 1 格血 + 掉肉塊）
     // ============================================================
     public void TakeDamage(int amount = 1)
     {
-        if (isInvincible || currentHP <= 0) return;
+        if (currentHP <= 0 || isInvincible) return;
 
-        // 掉肉塊
-        LaunchMeatCube();
-
-        // 扣血
         currentHP = Mathf.Max(0, currentHP - amount);
-        Debug.Log($"[PlayerHealth] 受傷！HP: {currentHP}/{maxHP}");
-
-        // 更新顯示
         RefreshUI();
 
         if (currentHP <= 0)
         {
-            Debug.Log("[PlayerHealth] 死亡！");
+            Debug.Log("[PlayerHealth] 血量歸零，準備發送 OnPlayerDeath 事件");
+            // 觸發事件
+            OnPlayerDeath?.Invoke();
         }
         else
         {
@@ -246,13 +241,13 @@ public class PlayerHealth : MonoBehaviour
 
         meat.AddComponent<HealthCube>();
 
-        float angle = Random.Range(50f, 130f);
+        float angle = UnityEngine.Random.Range(50f, 130f);
         Vector2 dir = new Vector2(
             Mathf.Cos(angle * Mathf.Deg2Rad),
             Mathf.Sin(angle * Mathf.Deg2Rad)
         );
         meatRb.AddForce(dir * meatLaunchForce, ForceMode2D.Impulse);
-        meatRb.AddTorque(Random.Range(-100f, 100f));
+        meatRb.AddTorque(UnityEngine.Random.Range(-100f, 100f));
     }
 
     // ============================================================
