@@ -1469,8 +1469,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   spawnCubeCount: 2
-  cubeDropHeight: 8
-  cubeSpreadRange: 3
+  cubeSpawnForce: 10
 --- !u!95 &1480072760
 Animator:
   serializedVersion: 7
@@ -1793,13 +1792,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 916f41b6c3d246f47bf92def6e46fee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeTime: 8
   pickupRange: 0.1
-  cubeScale: 0.4
-  cubeColor: {r: 1, g: 1, b: 1, a: 1}
-  bounceHeight: 0.15
-  bounceSpeed: 3
   pickupDelay: 0.8
+  lifeTime: 8
 --- !u!1 &1551318413
 GameObject:
   m_ObjectHideFlags: 0
@@ -1918,6 +1913,14 @@ PrefabInstance:
     - target: {fileID: 2796245555479878257, guid: 5de074fe653f5bb4ea5b337d19c66c5a, type: 3}
       propertyPath: maxEnemyCount
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841015515031395169, guid: 5de074fe653f5bb4ea5b337d19c66c5a, type: 3}
+      propertyPath: m_Size.y
+      value: 0.39930496
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841015515031395169, guid: 5de074fe653f5bb4ea5b337d19c66c5a, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.073418304
       objectReference: {fileID: 0}
     - target: {fileID: 4841015515031395169, guid: 5de074fe653f5bb4ea5b337d19c66c5a, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x

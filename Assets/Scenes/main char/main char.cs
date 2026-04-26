@@ -24,12 +24,10 @@ public class mainchar : MonoBehaviour
     [SerializeField] private float damageRadius = 1.5f;
     [SerializeField] private LayerMask enemyLayer;
 
-    [Header("=== 下壓掉肉塊 ===")]
+    [Header("=== 下壓噴肉塊 ===")]
     [SerializeField] private int spawnCubeCount = 2;
-    [Tooltip("肉塊從多高掉下來")]
-    [SerializeField] private float cubeDropHeight = 8f;
-    [Tooltip("肉塊左右散開的範圍")]
-    [SerializeField] private float cubeSpreadRange = 3f;
+    [Tooltip("肉塊噴射力道")]
+    [SerializeField] private float cubeSpawnForce = 10f;
 
     // 元件
     private Rigidbody2D rb;
@@ -156,8 +154,16 @@ public class mainchar : MonoBehaviour
     {
         isGroundPounding = true;
 
-        // ★ 下壓瞬間從身上噴出肉塊
+        // 記住原始重力
+        float originalGravity = rb.gravityScale;
+
+        // ★ 下壓瞬間：噴肉塊 + 扣 1 格血
         SpawnMeatCubes();
+        if (playerHealth != null)
+        {
+            playerHealth.SelfDamage(1);
+            Debug.Log("[mainchar] 下壓自傷 1 格！");
+        }
 
         // 短暫滯空
         rb.linearVelocity = Vector2.zero;
@@ -192,6 +198,8 @@ public class mainchar : MonoBehaviour
             yield return null;
         }
 
+        // ★ 落地後還原重力
+        rb.gravityScale = originalGravity;
         isGroundPounding = false;
     }
 
@@ -200,25 +208,41 @@ public class mainchar : MonoBehaviour
     // ============================================================
     private void SpawnMeatCubes()
     {
-        Debug.Log($"[mainchar] 從天上掉下 {spawnCubeCount} 個肉塊！");
+        Debug.Log($"[mainchar] 噴出 {spawnCubeCount} 個肉塊！");
 
         for (int i = 0; i < spawnCubeCount; i++)
         {
-            // 在主角上方隨機位置生成
-            float randomX = Random.Range(-cubeSpreadRange, cubeSpreadRange);
-            Vector3 spawnPos = transform.position
-                + Vector3.up * cubeDropHeight
-                + Vector3.right * randomX;
+            Vector3 spawnPos = transform.position + Vector3.up * 0.3f;
 
             GameObject cube = new GameObject($"MeatCube_{i}");
             cube.transform.position = spawnPos;
+            cube.transform.localScale = Vector3.one * 0.5f;
 
+            // 外觀：紅色方塊
+            SpriteRenderer sr = cube.AddComponent<SpriteRenderer>();
+            Texture2D tex = new Texture2D(1, 1);
+            tex.SetPixel(0, 0, Color.white);
+            tex.Apply();
+            sr.sprite = Sprite.Create(tex, new Rect(0, 0, 1, 1), Vector2.one * 0.5f, 1f);
+            sr.color = Color.red;
+            sr.sortingOrder = 5;
+
+            // 物理
             Rigidbody2D cubeRb = cube.AddComponent<Rigidbody2D>();
             cubeRb.gravityScale = 3f;
             cubeRb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 
+            // 撿拾邏輯
             cube.AddComponent<HealthCube>();
-            // 不加力，讓重力自然掉下來
+
+            // 左右噴射（第一個往左，第二個往右）
+            float angle = (i == 0) ? Random.Range(110f, 150f) : Random.Range(30f, 70f);
+            Vector2 dir = new Vector2(
+                Mathf.Cos(angle * Mathf.Deg2Rad),
+                Mathf.Sin(angle * Mathf.Deg2Rad)
+            );
+            cubeRb.AddForce(dir * cubeSpawnForce, ForceMode2D.Impulse);
+            cubeRb.AddTorque(Random.Range(-150f, 150f));
         }
     }
 

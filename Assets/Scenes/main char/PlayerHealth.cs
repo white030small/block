@@ -128,12 +128,29 @@ public class PlayerHealth : MonoBehaviour
         if (currentHP <= 0)
         {
             Debug.Log("[PlayerHealth] 死亡！");
-            // 加入死亡邏輯
         }
         else
         {
             isInvincible = true;
             invincibleTimer = invincibleDuration;
+        }
+    }
+
+    /// <summary>
+    /// 下壓自傷（不觸發無敵、不掉肉塊，因為下壓已經自己噴了）
+    /// </summary>
+    public void SelfDamage(int amount = 1)
+    {
+        if (currentHP <= 0) return;
+
+        currentHP = Mathf.Max(0, currentHP - amount);
+        Debug.Log($"[PlayerHealth] 自傷！HP: {currentHP}/{maxHP}");
+
+        RefreshUI();
+
+        if (currentHP <= 0)
+        {
+            Debug.Log("[PlayerHealth] 死亡！");
         }
     }
 
