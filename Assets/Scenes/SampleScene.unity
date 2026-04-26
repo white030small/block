@@ -415,7 +415,7 @@ Transform:
   m_GameObject: {fileID: 501630533}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.03, y: 0.55, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 0.30117887, y: 0.30117887, z: 0.30117887}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1249,7 +1249,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.23899364, g: 0.04133534, b: 0.082885064, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1655,6 +1655,7 @@ MonoBehaviour:
     m_Bits: 256
   spawnCubeCount: 2
   cubeSpawnForce: 10
+  isGroundPounding: 0
 --- !u!95 &1480072760
 Animator:
   serializedVersion: 7
@@ -2093,11 +2094,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2796245555479878257, guid: 5de074fe653f5bb4ea5b337d19c66c5a, type: 3}
       propertyPath: spawnArea.y
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2796245555479878257, guid: 5de074fe653f5bb4ea5b337d19c66c5a, type: 3}
       propertyPath: maxEnemyCount
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4841015515031395169, guid: 5de074fe653f5bb4ea5b337d19c66c5a, type: 3}
       propertyPath: m_Size.y
@@ -2145,11 +2146,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8942924286859425020, guid: 5de074fe653f5bb4ea5b337d19c66c5a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.59
+      value: -4.88
       objectReference: {fileID: 0}
     - target: {fileID: 8942924286859425020, guid: 5de074fe653f5bb4ea5b337d19c66c5a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.82
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 8942924286859425020, guid: 5de074fe653f5bb4ea5b337d19c66c5a, type: 3}
       propertyPath: m_LocalPosition.z
